@@ -1,6 +1,6 @@
 import "dotenv/config.js";
 import { Post } from "../models/post.js";
-import "fs";
+import * as fs from "fs";
 
 // création d'un Post
 export const createPost = async (req, res) => {
@@ -21,14 +21,14 @@ export const createPost = async (req, res) => {
 // récupération de tous les Posts
 export const getAllPost = async (req, res) => {
     Post.findAll()
-    .then(gifs => res.status(200).json(gifs))
+    .then(posts => res.status(200).json(posts))
     .catch(error => res.status(400).json({ error }));
 };
 
 // récupération d'un Post
 export const getOnePost = async (req, res) => {
     Post.findOne({where:{ id: req.params.id }})
-    .then(gif => res.status(200).json(gif))
+    .then(post => res.status(200).json(post))
     .catch(error => res.status(404).json({ error }));
 };
 
@@ -37,9 +37,11 @@ export const getOnePost = async (req, res) => {
 export const deletePost = async (req, res) => {
     Post.findOne({where: { id: req.params.id }})
     .then(post => {
-        if ( req.userId == gif.userId) {
+        if ( req.userId == post.userId) {
+            console.log(post.imgUrl)
             const filename = post.imgUrl.split('/images/')[1];
             fs.unlink(`images/${filename}`, () => {
+                console.log( "params", req.params.id)
                 Post.destroy( {where:{ id: req.params.id }})
                 .then(() => res.status(200).json({ message: 'Post supprimé !'}))
                 .catch(error => res.status(400).json({ error }));
@@ -49,5 +51,5 @@ export const deletePost = async (req, res) => {
             return res.status(401).json ({error: 'pas autorisé'})
         }
     })
-    .catch(error => res.status(500).json({ error }));
+    .catch(error => res.status(500).json({ message: "Erreur lors de la suppression" }));
 };

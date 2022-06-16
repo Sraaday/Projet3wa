@@ -1,6 +1,7 @@
 <template>
     <div>
-      <h1>Bienvenue sur Groupomania !</h1>
+      <img id="logo" src="../assets/cropped-big.png">
+      <h1>Bienvenue sur mon réseau social !</h1>
       <h2>Connectez-vous pour accéder au site</h2>
       <Connexion href="MainPage"/>
       <h2>Nouveau ? Inscrivez-vous en cliquant <router-link to="/register">ici</router-link></h2>
@@ -16,6 +17,14 @@ export default {
 }
 </script>
 <style scoped>
+#logo {
+    width: 450px;
+    display: flex;
+    align-self: center;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
 img {
   margin-top: -10px;
 }
