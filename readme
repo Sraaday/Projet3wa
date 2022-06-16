@@ -1,0 +1,10 @@
+How to setup the project :
+1. Import the projet3wa.sql file into your own SQL Database
+
+2. fill the blank in the .env.test, then rename it to .env.
+
+3. create a folder named "images" in /Backend.
+
+4. Run *npm install* in folder Backend then Run *npm install* in Frontend folder.
+
+5. Run *npm start* in /Backend to start the Backend then run *npm run dev* in /Frontend to start the Frontend.
