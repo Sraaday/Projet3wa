@@ -25,3 +25,4 @@ export const Comment = sequelize.define('Comment', {
   // Other model options go here
   freezeTableName: true
 });
+

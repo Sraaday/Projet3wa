@@ -55,14 +55,18 @@ export default {
             await this.getPosts();
         },
         getPosts: async function () {
+            const formatDate = (date) => {
+                const splitDate = date.split('-');
+                return `le ${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
+            }
             this.tempItems = [];
             const responsePost = await APICall.methods.get(`post`);
             responsePost.forEach(async (item) => {
                 const responseUser = await APICall.methods.get(`user/${item.userId}`);
                 const newItem = { title: item.Title, imgUrl: item.imgUrl, id: item.id
                                 , userId: item.userId, pseudo: `${responseUser.pseudo}`
-                                , createdAt: item.createdAt};
-                this.tempItems.unshift(newItem);
+                                , createdAt: formatDate(item.createdAt)};
+                this.tempItems.push(newItem);
             });
         },
         showOnePost: function (postId){
@@ -78,12 +82,6 @@ export default {
            this.pageOfItems = pageOfItems;
         }
     },
-    computed: {
-        formatDate: function (date) {
-            const splitDate = date.split('-');
-            return `le ${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
-        }
-    },
     mounted: async function () {
         const formatDate = (date) => {
             const splitDate = date.split('-');
@@ -96,8 +94,8 @@ export default {
             const newItem = { title: item.Title, imgUrl: item.imgUrl, id: item.id
                             , userId: item.userId, pseudo: `${responseUser.pseudo}`
                             , createdAt: formatDate(item.createdAt)};
-            this.items.unshift(newItem);
-            this.tempItems.unshift(newItem);
+            this.items.push(newItem);
+            this.tempItems.push(newItem);
         });
         this.timer = setInterval(() => {
             this.refreshComments()

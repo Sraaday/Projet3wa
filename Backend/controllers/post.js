@@ -20,7 +20,7 @@ export const createPost = async (req, res) => {
 
 // récupération de tous les Posts
 export const getAllPost = async (req, res) => {
-    Post.findAll()
+    Post.findAll({order: [['id', 'DESC']]})
     .then(posts => res.status(200).json(posts))
     .catch(error => res.status(400).json({ error }));
 };
@@ -32,6 +32,14 @@ export const getOnePost = async (req, res) => {
     .catch(error => res.status(404).json({ error }));
 };
 
+// modification d'un post
+export const modifyPostTitle = async (req, res) => {
+
+    console.log({ id: req.params.id, userId: req.userId, content: req.body.content})
+    Post.update({ Title: req.body.title }, {where:{ id: req.params.id, userId: req.userId} })
+    .then(() => res.status(200).json({ message: 'Post modifiée !'}))
+    .catch(error => res.status(400).json({ error }));
+};
 
 // suppression d'un Post
 export const deletePost = async (req, res) => {

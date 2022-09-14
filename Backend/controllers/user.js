@@ -11,7 +11,8 @@ export const signup = async (req, res) => {
             User.create({
                 mail: req.body.mail,
                 password: hash,
-                pseudo: req.body.pseudo
+                pseudo: req.body.pseudo,
+                isAdmin: false
             })
                 .then(() => res.status(201).json({ message: "Utilisateur créé"}))
                 .catch(error => {res.status(400).json({ error : error })});
@@ -34,7 +35,7 @@ export const login = async (req, res) => {
                     }
                     res.status(200).json({
                         token: jwt.sign(
-                            { userId: user.id },
+                            { userId: user.id, isAdmin: user.isAdmin },
                             'RANDOM_TOKEN_SECRET',
                             { expiresIn: '24h' }
                         )

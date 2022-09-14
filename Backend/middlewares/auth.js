@@ -8,7 +8,7 @@ export const auth = async (req, res, next) => {
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     // On extrait les informations du token vérifié
     req.userId = decodedToken.userId;
-
+    req.isAdmin = decodedToken.isAdmin;
     if (req.body.userId && req.userId !== userId ) {
       throw 'Invalid user ID';
     } else {

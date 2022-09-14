@@ -24,6 +24,12 @@ export default {
         isSetToken: function () {
             return sessionStorage.getItem('jwt') != null;
         },
+        isAdmin: function () {
+            if (!this.isSetToken())
+                return false;
+            const token = this.getParsedToken();
+            return token.isAdmin;
+        },
         getUrl: function (route) {
             return `${API}${route}`;
         },

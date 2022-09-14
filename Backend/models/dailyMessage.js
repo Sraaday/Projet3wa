@@ -1,35 +1,30 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/db.config.js';
 
-export const User = sequelize.define('User', {
+export const dailyMessage = sequelize.define('dailyMessage', {
   // Model attributes are defined here
-  pseudo: {
+  title:{
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  content: {
     type: DataTypes.STRING,
     allowNull: false
   },
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
-    primaryKey: true,
+    primaryKey: true
+    // allowNull defaults to true
+  },
+  userId: {
+    type: DataTypes.INTEGER,
     allowNull: false
   },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  mail: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  isAdmin: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false
-  } 
 }, { 
   // Other model options go here
   freezeTableName: true
 });
 
-// User.sync();
+// dailyMessage.sync();
 // console.log("The table for the User model was just (re)created!");

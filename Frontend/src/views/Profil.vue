@@ -1,19 +1,7 @@
 <template>
     <div>
 
-      <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-    </div>
-    <ul class="nav navbar-nav">
-      <li><router-link to="/main">Acceuil</router-link></li>
-      <li class="active"><router-link to="/profil">Consulter mon Profil</router-link></li>
-      <li><router-link to="/ForumPost">Forum Multimédia </router-link></li>
-    </ul>
-
-     <Deconnexion/>
-  </div>
-</nav>
+      <Nav active="Profil"/>
       
       <DisplayProfil :id="id" v-if="show"/>
     </div>
@@ -33,16 +21,17 @@
 <script>
 import DisplayProfil from '../components/Forum/DisplayProfil.vue';
 import APICall from '../components/APICall/APICall.vue'
-import Deconnexion from '../components/Connexion/Deconnexion.vue';
+import Nav from '../components/Utils/Nav.vue';
 export default {
   name: 'Profil',
-  components: { DisplayProfil, Deconnexion
+  components: { 
+    DisplayProfil, 
+    Nav
   },
   data: () => {
         return {
             id: 0,
             show: false,
-            admin: false
         }
         
     },

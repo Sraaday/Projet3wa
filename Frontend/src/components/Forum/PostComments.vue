@@ -4,6 +4,7 @@
             <li v-for="item in items" :key="item.id" >
                 <p> Ecrit par {{item.userName}} {{item.createdAt}}</p>
                 <p>{{item.content}}</p>
+                <ModifyComment v-if="item.userId == userId" v-bind:commentId=item.id v-bind:content=item.content />
                 <button v-if="admin || item.userId == userId" v-on:click="deleteCom(item.id)">Supprimer</button>
                 
             </li>
@@ -12,10 +13,14 @@
 </template>
 <script>
 import APICall from '../APICall/APICall.vue'
+import ModifyComment from './ModifyComment.vue';
 export default {
-    name: 'GifComments',
+    name: 'PostComments',
     props: {
         postId: Number
+    },
+     components: {
+        ModifyComment,
     },
     data: () => {
         return {
@@ -31,6 +36,7 @@ export default {
             if (this.items.length != this.tempItems.length ){
                 this.items = this.tempItems;
             }
+            this.items = this.tempItems;
             await this.getComments();
         },
         getComments: async function () {

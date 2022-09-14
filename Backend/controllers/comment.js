@@ -29,11 +29,8 @@ export const getOneComment = async (req, res) => {
 
 // modification d'un commentaire
 export const modifyComment = async (req, res) => {
-    const commentObject = req.file ?
-    {
-        ...JSON.parse(req.body.comment),
-    } : { ...req.body };
-    Comment.update({where:{ id: req.params.id, userId: req.userId} }, { ...commentObject, id: req.params.id })
+
+    Comment.update({ content: req.body.content }, {where:{ id: req.params.id, userId: req.userId} })
     .then(() => res.status(200).json({ message: 'Commentaire modifiée !'}))
     .catch(error => res.status(400).json({ error }));
 };

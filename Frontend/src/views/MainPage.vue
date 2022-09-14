@@ -1,19 +1,11 @@
 <template>
     <section>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <ul class="nav navbar-nav">
-                    <li class="active"><router-link to="/main">Acceuil</router-link></li>
-                    <li><router-link to="/profil">Consulter mon Profil</router-link></li>
-                    <li><router-link to="/ForumPost">Forum Multimédia </router-link></li>
-                </ul>
-                <Deconnexion/>
-            </div>
-        </nav>
+        <Nav active="Main"/>
 
         <article>
             <img id="logo" src="../assets/cropped-big.png">
             <h1>Bienvenue sur notre réseau social !</h1>
+            <DailyMessage/>
             <h2> Créez des posts dès maintenant ! </h2>
             <h3> <router-link class="link" to="/ForumPost">Accès au forum Multimédia !</router-link> </h3>
         </article>
@@ -23,20 +15,19 @@
 
 
 <script>
-import Deconnexion from '../components/Connexion/Deconnexion.vue';
-import APICall from '../components/APICall/APICall.vue';
+import Nav from '../components/Utils/Nav.vue';
+import DailyMessage from '../components/Utils/DailyMessage.vue';
 export default {
   name: 'Main',
   components : {
-    Deconnexion
+    Nav,
+    DailyMessage
   },
   data: () => {
     return {
-      admin: false
     }
   },
   mounted: function () {
-      this.admin = APICall.methods.getParsedToken().isAdmin;
   }
 }
 </script>
